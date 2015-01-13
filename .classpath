@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="com/java/servlet/DeviceServlet.java|com/java/servlet/JDBC_Util.java|com/java/dbutil/InsertTable.java|com/java/model/Laptop.java|com/java/model/Mobile.java|com/java/model/ModelTest.java|com/java/model/Tablet.java|com/java/devicedao/InsertNewDevice.java|com/java/servlet/DeviceInsertServlet.java" kind="src" path="src"/>
+	<classpathentry excluding="com/java/servlet/DeviceServlet.java|com/java/servlet/JDBC_Util.java|com/java/dbutil/InsertTable.java|com/java/model/Laptop.java|com/java/model/Mobile.java|com/java/model/ModelTest.java|com/java/model/Tablet.java|com/java/devicedao/InsertNewDevice.java|com/java/devicedao/SearchDevice.java|com/java/devicedao/PrintAll.java|com/java/devicedao/TestDao.java|com/java/servlet/DeviceSearchServlet.java|com/java/dbutil/OpenDatabase.java|com/java/dbutil/ViewTable.java|com/java/dbutil/SearchTable.java|com/java/dbutil/CloseTable.java|com/java/dbutil/oldfile/|com/java/devicedao/oldfiles/|com/java/model/oldfiles/" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_25">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>

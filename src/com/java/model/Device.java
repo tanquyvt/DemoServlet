@@ -11,6 +11,19 @@ public class Device {
 	private int price;
 	private String message;
 	
+	// Define Device constructor
+	public Device() {}
+	
+	public Device(int newDeviceID, String newDeviceName, String newType, int newCompanyID,
+		String newColor, int newPrice) {
+		this.setDeviceID(deviceID);
+		this.setDeviceName(deviceName);
+		this.setType(type);
+		this.setCompanyID(newCompanyID);
+		this.setColor(newColor);
+		this.setPrice(newPrice);
+	}
+	
 	// Define getters and setters
 	/**
 	 * @return the deviceID

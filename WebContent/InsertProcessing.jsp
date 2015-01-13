@@ -1,4 +1,3 @@
-<%@page import="com.java.dbutil.OpenDatabase"%>
 <%@ page import="java.sql.*" language="java"
 	contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -16,7 +15,7 @@
 				</tr>
 				<tr>
 					<td>Name:</td>
-					<td><input type="text" name="dName" required></td>
+					<td><input type="text" name="dName" required="required"></td>
 				</tr>
 				<tr>
 					<td>Type:</td>
@@ -29,7 +28,7 @@
 				</tr>
 				<tr>
 					<td>Company:</td>
-					<td><select name="dCompany">
+					<td><select name="dCompanyId">
 							<!-- <option value="">Select type</option> -->
 							<%
 								Class.forName("com.mysql.jdbc.Driver").newInstance();

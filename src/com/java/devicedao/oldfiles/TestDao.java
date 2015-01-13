@@ -9,14 +9,15 @@ public class TestDao {
 			Device device = new Device();
 			device.setDeviceName("Samsung Galaxy V");
 			device.setType("Mobile");
-			device.setCompanyID(3);
+			device.setCompanyID(0003);
 			device.setColor("White");
 			device.setPrice(1990000);
+			Device result = new Device();
 			
-			a.insertNewDevice(device);
-			System.out.format("%-30s%-10s%-10s%-10s%-10d\n",
-					device.getDeviceName(), device.getType(), device.getCompanyID(),
-					device.getColor(), device.getPrice());
+			result = a.insertNewDevice(device);
+			System.out.format("%-5d%-30s%-10s%-10s%-10s%-10d\n",
+					result.getDeviceID(), result.getDeviceName(), result.getType(),
+					result.getCompanyID(), result.getColor(), result.getPrice());
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

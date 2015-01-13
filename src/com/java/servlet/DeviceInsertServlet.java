@@ -1,24 +1,20 @@
 package com.java.servlet;
 
 import java.io.IOException;
-//import java.sql.SQLException;
-
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.Enumeration;
+import java.util.List;
 
-//import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.java.dbutil.OpenDatabase;
-import com.java.devicedao.InsertNewDevice;
+import com.java.devicedao.Accessible;
+import com.java.devicedao.DeviceDao;
 import com.java.model.Device;
-import com.java.model.Laptop;
-import com.java.model.Mobile;
-import com.java.model.Tablet;
 
 /**
  * Servlet implementation class DeviceInsertServlet
@@ -26,73 +22,60 @@ import com.java.model.Tablet;
 @WebServlet("/DeviceInsertServlet")
 public class DeviceInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	Device d = null;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public DeviceInsertServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/hrml");
+		
+		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-
+		
 		String dName = request.getParameter("dName");
-		String dCompany = request.getParameter("dCompany");
 		String dType = request.getParameter("dType");
+		int dCompanyId = Integer.parseInt(request.getParameter("dCompanyId"));
 		String dColor = request.getParameter("dColor");
-		int dPrice = Integer.parseInt(request.getParameter("dPrice"));
-
-		out.println("<html>");
-		out.println("<head><title>Insert Device</title></head>");
-		out.println("<body>");
-		out.println("<h2>Name: " + dName + "</h2>");
-		out.println("<h2>Company: " + dCompany + "</h2>");
-		out.println("<h2>Type: " + dType + "</h2>");
-		out.println("<h2>Color: " + dColor + "</h2>");
-		out.println("<h2>Price: " + dPrice + "</h2>");
-		out.println("</body></html>");
-
-		switch (dType) {
-		case "1":
-			d = new Mobile(dName, dCompany, dColor, dPrice);
-			break;
-		case "2":
-			d = new Laptop(dName, dCompany, dColor, dPrice);
-			break;
-		case "3":
-			d = new Tablet(dName, dCompany, dColor, dPrice);
-			break;
-
-		default:
-			break;
-		}
-
+		int dPrice = Integer.parseInt(request.getParameter("dPrice")); 
+		
+		Device dObj = new Device();
+		
+		dObj.setDeviceName(dName);
+		dObj.setType(dType);
+		dObj.setCompanyID(dCompanyId);
+		dObj.setColor(dColor);
+		dObj.setPrice(dPrice);
+		
 		try {
-			new InsertNewDevice(d);
-			out.println(OpenDatabase.results);
-		} catch (SQLException sqlException) {
-			OpenDatabase.results = sqlException.getMessage();
-		} catch (ClassNotFoundException classNotFound) {
-			OpenDatabase.results = classNotFound.getMessage();
-		}
-	}
+			Accessible dAccessObj = new DeviceDao();
+			Device dNew = dAccessObj.insertNewDevice(dObj);
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+			out.println("<html>");
+			out.println("<head><title>List Device</title></head>");
+			out.println("<body>");
+			out.println("<h2>Insert Device Succesful!</h2>");
+			out.println("<table>");
+			out.println("<tr>");
+			out.println("<th>ID</th>");
+			out.println("<th>Name</th>");
+			out.println("<th>Name</th>");
+			out.println("</tr>");
+			out.println("</table>");
+			out.println("</body></html>");
+		} catch (SQLException sqlException) {
+			out.println("<p style=\"color: red\">" + sqlException.getMessage() + "</p>");
+		} catch (ClassNotFoundException classNotFound) {
+			out.println("<p style=\"color: red\">" + classNotFound.getMessage() + "</p>");
+		}
 	}
 
 }
