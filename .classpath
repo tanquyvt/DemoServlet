@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="com/java/servlet/DeviceServlet.java|com/java/servlet/JDBC_Util.java" kind="src" path="src"/>
+	<classpathentry excluding="com/java/servlet/DeviceServlet.java|com/java/servlet/JDBC_Util.java|com/java/dbutil/InsertTable.java|com/java/model/Laptop.java|com/java/model/Mobile.java|com/java/model/ModelTest.java|com/java/model/Tablet.java|com/java/devicedao/InsertNewDevice.java|com/java/servlet/DeviceInsertServlet.java" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_25">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>
