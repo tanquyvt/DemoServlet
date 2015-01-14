@@ -1,0 +1,21 @@
+@CHARSET "ISO-8859-1";
+#header {
+	background-color: green;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	color: yellow;
+}
+
+#nav {
+	
+}
+
+#content {
+	padding-bottom: 300px;
+}
+
+#footer {
+	background-color: silver;
+	padding-top: 25px;
+	padding-bottom: 25px;
+}

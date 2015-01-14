@@ -1,6 +1,5 @@
 package com.java.servlet;
 
-import java.util.*;
 import java.io.*;
 import java.sql.*;
 
@@ -11,21 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.java.devicedao.Accessible;
+import com.java.bean.DeviceInfoBean;
 import com.java.devicedao.DeviceDao;
-import com.java.model.Device;
 
 /**
- * Servlet implementation class CompanyListServlet
+ * Servlet implementation class DeviceUpdateServlet
  */
-@WebServlet("/CompanyListServlet")
-public class DeviceListServlet extends HttpServlet {
+@WebServlet("/DeviceUpdateServlet")
+public class DeviceUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public DeviceListServlet() {
+	public DeviceUpdateServlet() {
 		super();
 	}
 
@@ -33,26 +31,31 @@ public class DeviceListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
 		response.setContentType("text/html");
-		 PrintWriter out = response.getWriter();
+		PrintWriter out = response.getWriter();
 
-		Accessible dAccessObj = new DeviceDao();
-		List<Device> dList;
+		int id = Integer.parseInt(request.getParameter("id").toString());
+
+		DeviceDao dao = new DeviceDao();
+		DeviceInfoBean d;
+
 		try {
-			dList = dAccessObj.viewAllDevices();
-			request.setAttribute("device", dList);
-			request.setAttribute("lSize", dList.size());
+
+			d = dao.viewDeviceDetails(id);
+
+			request.setAttribute("dUp", d);
+
+			RequestDispatcher despatch = request.getRequestDispatcher("u2.jsp");
 			
-			RequestDispatcher despatch = request
-					.getRequestDispatcher("listcontent.jsp");
 			despatch.forward(request, response);
+			
+
 		} catch (ClassNotFoundException | SQLException e) {
 			out.println(e.getMessage());
 		}
-
 	}
+
 }

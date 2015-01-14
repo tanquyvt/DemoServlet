@@ -25,6 +25,14 @@
     <servlet-name>devicedetail</servlet-name>
     <servlet-class>com.java.servlet.DeviceDetailServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>deviceupdate</servlet-name>
+    <servlet-class>com.java.servlet.DeviceUpdateServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>devicedelete</servlet-name>
+    <servlet-class>com.java.servlet.DeviceDeleteServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>devicelist</servlet-name>
     <url-pattern>/devicelist</url-pattern>
@@ -40,5 +48,13 @@
   <servlet-mapping>
     <servlet-name>devicedetail</servlet-name>
     <url-pattern>/devicedetail/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>deviceupdate</servlet-name>
+    <url-pattern>/deviceupdate</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>devicedelete</servlet-name>
+    <url-pattern>/devicedelete</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -55,28 +55,30 @@ public class DeviceInsertServlet extends HttpServlet {
 		try {
 			Accessible dAccessObj = new DeviceDao();
 			Device dNew = dAccessObj.insertNewDevice(dObj);
+			
+			response.sendRedirect("insertsuccess.jsp");
 
-			out.println("<html>");
-			out.println("<head><title>Insert Device</title></head>");
-			out.println("<body>");
-			out.println("<h2>Insert Device Succesful!</h2>");
-			out.println("<table>");
-			out.println("<tr>");
-			out.println("<th>ID</th>");
-			out.println("<th>Name</th>");
-			out.println("<th>Type</th>");
-			out.println("<th>Color</th>");
-			out.println("<th>Price</th>");
-			out.println("</tr>");
-			out.println("<tr>");
-			out.println("<td>"+ dNew.getDeviceID() +"</td>");
-			out.println("<td>" + dNew.getDeviceName() +"</td>");
-			out.println("<td>"+ dNew.getType() +"</td>");
-			out.println("<td>"+ dNew.getColor() +"</td>");
-			out.println("<td>"+ dNew.getPrice() +"</td>");
-			out.println("</tr>");
-			out.println("</table>");
-			out.println("</body></html>");
+//			out.println("<html>");
+//			out.println("<head><title>Insert Device</title></head>");
+//			out.println("<body>");
+//			out.println("<h2>Insert Device Succesful!</h2>");
+//			out.println("<table>");
+//			out.println("<tr>");
+//			out.println("<th>ID</th>");
+//			out.println("<th>Name</th>");
+//			out.println("<th>Type</th>");
+//			out.println("<th>Color</th>");
+//			out.println("<th>Price</th>");
+//			out.println("</tr>");
+//			out.println("<tr>");
+//			out.println("<td>"+ dNew.getDeviceID() +"</td>");
+//			out.println("<td>" + dNew.getDeviceName() +"</td>");
+//			out.println("<td>"+ dNew.getType() +"</td>");
+//			out.println("<td>"+ dNew.getColor() +"</td>");
+//			out.println("<td>"+ dNew.getPrice() +"</td>");
+//			out.println("</tr>");
+//			out.println("</table>");
+//			out.println("</body></html>");
 		} catch (SQLException sqlException) {
 			out.println("<p style=\"color: red\">" + sqlException.getMessage() + "</p>");
 		} catch (ClassNotFoundException classNotFound) {

@@ -9,8 +9,15 @@ import com.java.bean.DeviceInfoBean;
 import com.java.dbutil.DatabaseUtility;
 import com.java.model.Device;
 
+/**
+ * @author Computer
+ *
+ */
 public class DeviceDao implements Accessible {
 
+	/* (non-Javadoc)
+	 * @see com.java.devicedao.Accessible#viewAllDevices()
+	 */
 	@Override
 	public List<Device> viewAllDevices() throws SQLException,
 			ClassNotFoundException {
@@ -42,6 +49,9 @@ public class DeviceDao implements Accessible {
 		return devices;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.java.devicedao.Accessible#viewDeviceDetails(int)
+	 */
 	@Override
 	public DeviceInfoBean viewDeviceDetails(int id) throws SQLException, ClassNotFoundException {
 
@@ -74,6 +84,9 @@ public class DeviceDao implements Accessible {
 		return deviceInfo;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.java.devicedao.Accessible#insertNewDevice(com.java.model.Device)
+	 */
 	@Override
 	public Device insertNewDevice(Device newDevice) throws SQLException,
 			ClassNotFoundException {
@@ -105,8 +118,11 @@ public class DeviceDao implements Accessible {
 		return insertedDevice;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.java.devicedao.Accessible#updateDevice(int, java.lang.String[])
+	 */
 	@Override
-	public Device updateDevice(int id, String updateField, String updateValue) 
+	public Device updateDevice(int id, String[] updateValues) 
 			throws SQLException, ClassNotFoundException {
 
 		// Initiate update device
@@ -120,7 +136,7 @@ public class DeviceDao implements Accessible {
 		
 		// Create result set for
 		// updating the old device
-		ResultSet rs = newDBUtil.initiateUpdateTable(id, updateField, updateValue);
+		ResultSet rs = newDBUtil.initiateUpdateTable(id, updateValues);
 		
 		// Get the updated device
 		rs.next();
@@ -137,8 +153,14 @@ public class DeviceDao implements Accessible {
 		return device;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.java.devicedao.Accessible#SearchDevice(java.lang.String, java.lang.String)
+	 */
+	/* (non-Javadoc)
+	 * @see com.java.devicedao.Accessible#SearchDevice(java.lang.String, java.lang.String)
+	 */
 	@Override
-	public List<DeviceInfoBean> SearchDevice(String tableField, String stringToSearch)
+	public List<DeviceInfoBean> searchDevice(String tableField, String stringToSearch)
 			throws SQLException, ClassNotFoundException {
 		// Initiate result list of devices
 		List<DeviceInfoBean> devices = new ArrayList<DeviceInfoBean>();
@@ -165,11 +187,17 @@ public class DeviceDao implements Accessible {
 			devices.add(deviceInfo);
 		}
 
+		// Close database
+		newDBUtil.closeDatabase();
+		
 		return devices;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.java.devicedao.Accessible#SearchDeviceByPrice(int, int)
+	 */
 	@Override
-	public List<DeviceInfoBean> SearchDeviceByPrice(int lowerPrice, int upperPrice)
+	public List<DeviceInfoBean> searchDeviceByPrice(int lowerPrice, int upperPrice)
 			throws SQLException, ClassNotFoundException {
 		// Initiate result list of devices
 		List<DeviceInfoBean> devices = new ArrayList<DeviceInfoBean>();
@@ -194,10 +222,34 @@ public class DeviceDao implements Accessible {
 			deviceInfo.setPrice(Integer.parseInt(rs.getObject(7).toString()));
 			devices.add(deviceInfo);
 		}
+		
+		// Close database
+		newDBUtil.closeDatabase();
 
 		return devices;
 	}
+	
+	
+	/* (non-Javadoc)
+	 * @see com.java.devicedao.Accessible#deleteDevice(int)
+	 */
+	public void deleteDevice(int id) throws SQLException, ClassNotFoundException {
+		// Create a database utility object
+				DatabaseUtility newDBUtil = new DatabaseUtility();
 
+				// Open database
+				newDBUtil.openDatabase();
+				
+				// Delete the chosen device
+				newDBUtil.initiateDeleteTable(id);
+				
+				// Close database
+				newDBUtil.closeDatabase();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.java.devicedao.Accessible#writeLog()
+	 */
 	@Override
 	public void writeLog() {
 		// TODO Auto-generated method stub

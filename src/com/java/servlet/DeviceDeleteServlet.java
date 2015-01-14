@@ -1,8 +1,8 @@
 package com.java.servlet;
 
-import java.util.*;
-import java.io.*;
-import java.sql.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,21 +11,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.java.devicedao.Accessible;
+import com.java.bean.DeviceInfoBean;
 import com.java.devicedao.DeviceDao;
-import com.java.model.Device;
 
 /**
- * Servlet implementation class CompanyListServlet
+ * Servlet implementation class DeviceDeleteServlet
  */
-@WebServlet("/CompanyListServlet")
-public class DeviceListServlet extends HttpServlet {
+@WebServlet("/DeviceDeleteServlet")
+public class DeviceDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public DeviceListServlet() {
+	public DeviceDeleteServlet() {
 		super();
 	}
 
@@ -33,26 +32,32 @@ public class DeviceListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
 		response.setContentType("text/html");
-		 PrintWriter out = response.getWriter();
+		PrintWriter out = response.getWriter();
 
-		Accessible dAccessObj = new DeviceDao();
-		List<Device> dList;
+		int id = Integer.parseInt(request.getParameter("id").toString());
+
+		DeviceDao dao = new DeviceDao();
+//		DeviceInfoBean d;
+
 		try {
-			dList = dAccessObj.viewAllDevices();
-			request.setAttribute("device", dList);
-			request.setAttribute("lSize", dList.size());
+
+			dao.deleteDevice(id);
+
+//			request.setAttribute("dUp", d);
+
+//			RequestDispatcher despatch = request.getRequestDispatcher("delete.jsp");
+//
+//			despatch.forward(request, response);
 			
-			RequestDispatcher despatch = request
-					.getRequestDispatcher("listcontent.jsp");
-			despatch.forward(request, response);
+			response.sendRedirect("delete.jsp");
+
 		} catch (ClassNotFoundException | SQLException e) {
 			out.println(e.getMessage());
 		}
 
 	}
+
 }

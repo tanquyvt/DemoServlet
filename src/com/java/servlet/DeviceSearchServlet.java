@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,45 +43,24 @@ public class DeviceSearchServlet extends HttpServlet {
 		String sField = request.getParameter("sField");
 
 		DeviceDao dao = new DeviceDao();
+		List<DeviceInfoBean> dBean;
+		
 		try {
-			List<DeviceInfoBean> dBean = dao.SearchDevice(sField, sValue);
 
-			out.println("<html>");
-			out.println("<head><title>Search Result</title></head>");
-			out.println("<body>");
-			out.println("<h2>View Search Result</h2>");
+			dBean = dao.searchDevice(sField, sValue);
 
-			if (dBean.size() == 0) {
-				out.println("<p>There are no <b>" + sField + "</b> is <b>" + sValue + "</b></p>");
-			} else {
-				out.println("<table>");
-				out.println("<tr>");
-				out.println("<th>ID</th>");
-				out.println("<th>Name</th>");
-				out.println("<th>Type</th>");
-				out.println("<th>Color</th>");
-				out.println("<th>Price</th>");
-				out.println("</tr>");
+			request.setAttribute("dBean", dBean);
+			request.setAttribute("dBeanSize", dBean.size());
+			request.setAttribute("sValue", sValue);
+			request.setAttribute("sField", sField);
 
-				for (int i = 0; i < dBean.size(); i++) {
-					out.println("<tr>");
-					out.println("<td>" + dBean.get(i).getDeviceID() + "</td>");
-					out.println("<td>" + dBean.get(i).getDeviceName() + "</td>");
-					out.println("<td>" + dBean.get(i).getType() + "</td>");
-					out.println("<td>" + dBean.get(i).getColor() + "</td>");
-					out.println("<td>" + dBean.get(i).getPrice() + "</td>");
-					out.println("</tr>");
-				}
-				out.println("</table>");
-				out.println("</body></html>");
-			}
+			RequestDispatcher despatch = request.getRequestDispatcher("searchsuccess.jsp");
+			
+			despatch.forward(request, response);
+			
 
-		} catch (SQLException sqlException) {
-			out.println("<p style=\"color: red\">" + sqlException.getMessage()
-					+ "</p>");
-		} catch (ClassNotFoundException classNotFound) {
-			out.println("<p style=\"color: red\">" + classNotFound.getMessage()
-					+ "</p>");
+		} catch (ClassNotFoundException | SQLException e) {
+			out.println(e.getMessage());
 		}
 	}
 

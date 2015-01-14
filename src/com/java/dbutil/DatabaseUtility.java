@@ -14,7 +14,11 @@ public class DatabaseUtility {
 	Statement statement;
 	static Connection connection;
 
-	// Initiate database connection method
+	/**
+	 * Open Database
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	public void openDatabase() throws SQLException, ClassNotFoundException {
 
 		// Declare JDBC driver name and database URL
@@ -28,6 +32,10 @@ public class DatabaseUtility {
 		connection = DriverManager.getConnection(DATABASE_URL, "root", "");
 	}
 
+	/**
+	 * @return
+	 * @throws SQLException
+	 */
 	public ResultSet initiateViewAll() throws SQLException {
 
 		// create Statement for querying database
@@ -41,6 +49,11 @@ public class DatabaseUtility {
 		return resultSet;
 	}
 	
+	/**
+	 * @param newDevice
+	 * @return
+	 * @throws SQLException
+	 */
 	public ResultSet initiateInsertTable(Device newDevice) throws SQLException {
 		
 		// create Statement for querying database
@@ -58,6 +71,12 @@ public class DatabaseUtility {
 		return resultSet;
 	}
 	
+	/**
+	 * @param tableField
+	 * @param stringToSearch
+	 * @return
+	 * @throws SQLException
+	 */
 	public ResultSet initiateSearchTable(String tableField, String stringToSearch) throws SQLException {
 		
 		// create Statement for querying database
@@ -67,14 +86,20 @@ public class DatabaseUtility {
 		ResultSet resultSet = statement.executeQuery(
 			"SELECT `device_id`, `device_name`, `type`, `company_name`, `country`, `color`, `price` " +
 			"FROM `device`, `company` " +
-			"WHERE `device`.`company_id`=`company`.`company_id` " +	//	Thieu 1 dau ` cho company_id=
-			"AND `device`.`" + tableField + "`='" + stringToSearch + "' " +	//	Them device_id.
-			"ORDER BY device_id");
+			"WHERE `device`.`company_id`=`company`.`company_id` " +
+			"AND `" + tableField + "`LIKE '%" + stringToSearch + "%' " +
+			"ORDER BY `device_id`");
 		
 		// return the result set
 		return resultSet;
 	}
 	
+	/**
+	 * @param lowerPrice
+	 * @param upperPrice
+	 * @return
+	 * @throws SQLException
+	 */
 	public ResultSet initiateSearchTable(int lowerPrice, int upperPrice) throws SQLException {
 		
 		// create Statement for querying database
@@ -92,8 +117,12 @@ public class DatabaseUtility {
 		return resultSet;
 	}
 
-	public ResultSet initiateViewDetails(int id)
-		throws SQLException {
+	/**
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
+	public ResultSet initiateViewDetails(int id) throws SQLException {
 
 		// create Statement for querying database
 		statement = connection.createStatement();
@@ -109,8 +138,13 @@ public class DatabaseUtility {
 		return resultSet;
 	}
 	
-	public ResultSet initiateUpdateTable(int id, String updateField, String updateString)
-			throws SQLException {
+	/**
+	 * @param id
+	 * @param updateValues
+	 * @return
+	 * @throws SQLException
+	 */
+	public ResultSet initiateUpdateTable(int id, String[] updateValues) throws SQLException {
 
 			// create Statement for querying database
 			statement = connection.createStatement();
@@ -118,15 +152,35 @@ public class DatabaseUtility {
 			// Define result set with statement
 			statement.executeUpdate(
 				"UPDATE `device`" +
-				"SET `" + updateField + "'='" + updateString + "'" +
+				"SET `device_name`='" + updateValues[0] + "', " +
+				"`type`='" + updateValues[1] + "', " +
+				"`company_id`=" + Integer.parseInt(updateValues[2]) + ", " +
+				"'color`=" + updateValues[3] + ", " +
+				"`price`=" + Integer.parseInt(updateValues[4]) + " " +
 				"WHERE `device_id`=" + id);
 			ResultSet resultSet = statement.executeQuery("SELECT * FROM `device` WHERE `device_id`=" + id);
 
 			// return the result set
 			return resultSet;
-		}
+	}
 	
-	// Close database connection method
+	
+	/**
+	 * @param id
+	 * @throws SQLException
+	 */
+	public void initiateDeleteTable(int id) throws SQLException{
+		
+		// create Statement for querying database
+		statement = connection.createStatement();
+					
+		// Define result set with statement
+		statement.executeUpdate("DELETE FROM `device` WHERE `device_id`=" + id);
+	}
+	
+	/**
+	 * @throws SQLException
+	 */
 	public void closeDatabase() throws SQLException {
 
 		// Close statement and connection
