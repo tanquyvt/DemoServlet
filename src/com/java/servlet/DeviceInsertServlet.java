@@ -1,10 +1,7 @@
 package com.java.servlet;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.Enumeration;
-import java.util.List;
+import java.io.*;
+import java.sql.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -60,14 +57,23 @@ public class DeviceInsertServlet extends HttpServlet {
 			Device dNew = dAccessObj.insertNewDevice(dObj);
 
 			out.println("<html>");
-			out.println("<head><title>List Device</title></head>");
+			out.println("<head><title>Insert Device</title></head>");
 			out.println("<body>");
 			out.println("<h2>Insert Device Succesful!</h2>");
 			out.println("<table>");
 			out.println("<tr>");
 			out.println("<th>ID</th>");
 			out.println("<th>Name</th>");
-			out.println("<th>Name</th>");
+			out.println("<th>Type</th>");
+			out.println("<th>Color</th>");
+			out.println("<th>Price</th>");
+			out.println("</tr>");
+			out.println("<tr>");
+			out.println("<td>"+ dNew.getDeviceID() +"</td>");
+			out.println("<td>" + dNew.getDeviceName() +"</td>");
+			out.println("<td>"+ dNew.getType() +"</td>");
+			out.println("<td>"+ dNew.getColor() +"</td>");
+			out.println("<td>"+ dNew.getPrice() +"</td>");
 			out.println("</tr>");
 			out.println("</table>");
 			out.println("</body></html>");

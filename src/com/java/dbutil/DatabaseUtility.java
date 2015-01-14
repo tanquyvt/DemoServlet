@@ -67,8 +67,8 @@ public class DatabaseUtility {
 		ResultSet resultSet = statement.executeQuery(
 			"SELECT `device_id`, `device_name`, `type`, `company_name`, `country`, `color`, `price` " +
 			"FROM `device`, `company` " +
-			"WHERE `device`.`company_id=`company`.`company_id` " +
-			"AND " + tableField + "='" + stringToSearch + "' " +
+			"WHERE `device`.`company_id`=`company`.`company_id` " +	//	Thieu 1 dau ` cho company_id=
+			"AND `device`.`" + tableField + "`='" + stringToSearch + "' " +	//	Them device_id.
 			"ORDER BY device_id");
 		
 		// return the result set

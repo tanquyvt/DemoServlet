@@ -55,7 +55,8 @@ public class DeviceListServlet extends HttpServlet {
 			for (int i = 0; i < dList.size(); i++) {
 				out.println("<tr>");
 				out.print("<td>" + dList.get(i).getDeviceID() + "</td>");
-				out.println("<td><a href=" + ">" + dList.get(i).getDeviceName() + "</a></td>");
+				out.println("<td><a href=\"devicedetail/"+ dList.get(i).getDeviceID() + "\">" + dList.get(i).getDeviceName() + "</a></td>");
+				out.println("<td><a href=\"devicedetail/"+ dList.get(i).getDeviceID() + "\">Update</a></td>");				
 				out.println("</tr>");
 			}
 			out.println("</table>");

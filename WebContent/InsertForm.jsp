@@ -21,9 +21,9 @@
 					<td>Type:</td>
 					<!-- <td><input type="text" name="dType"></td> -->
 					<td><select name="dType">
-							<option value="1">Laptop</option>
-							<option value="2">Mobile</option>
-							<option value="3">Tablet</option>
+							<option value="Laptop">Laptop</option>
+							<option value="Mobile">Mobile</option>
+							<option value="Tablet">Tablet</option>
 					</select></td>
 				</tr>
 				<tr>

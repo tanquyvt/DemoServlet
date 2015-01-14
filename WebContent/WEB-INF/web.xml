@@ -21,6 +21,10 @@
     <servlet-name>devicesearch</servlet-name>
     <servlet-class>com.java.servlet.DeviceSearchServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>devicedetail</servlet-name>
+    <servlet-class>com.java.servlet.DeviceDetailServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>devicelist</servlet-name>
     <url-pattern>/devicelist</url-pattern>
@@ -32,5 +36,9 @@
   <servlet-mapping>
     <servlet-name>devicesearch</servlet-name>
     <url-pattern>/devicesearch</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>devicedetail</servlet-name>
+    <url-pattern>/devicedetail/*</url-pattern>
   </servlet-mapping>
 </web-app>
