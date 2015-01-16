@@ -2,20 +2,30 @@ package com.java.model;
 
 public class Device {
 	
-	// attributes of class Device
+	// Attributes of class Device
 	private int deviceID;
+	private int companyID;
+	private int price;
 	private String deviceName;
 	private String type;
-	private int companyID;
 	private String color;
-	private int price;
-	private String message;
 	
-	// Define Device constructor
+	/**
+	 * Constructor without parameters
+	 */
 	public Device() {}
 	
-	public Device(int newDeviceID, String newDeviceName, String newType, int newCompanyID,
-		String newColor, int newPrice) {
+	/**
+	 * Constructor with parameters
+	 * @param newDeviceID
+	 * @param newDeviceName
+	 * @param newType
+	 * @param newCompanyID
+	 * @param newColor
+	 * @param newPrice
+	 */
+	public Device(int newDeviceID, String newDeviceName, String newType,
+				int newCompanyID, String newColor, int newPrice) {
 		this.setDeviceID(deviceID);
 		this.setDeviceName(deviceName);
 		this.setType(type);
@@ -23,7 +33,7 @@ public class Device {
 		this.setColor(newColor);
 		this.setPrice(newPrice);
 	}
-	
+
 	// Define getters and setters
 	/**
 	 * @return the deviceID
@@ -97,17 +107,4 @@ public class Device {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	/**
-	 * @return the message
-	 */
-	public String getMessage() {
-		return message;
-	}
-	/**
-	 * @param message the message to set
-	 */
-	public void setMessage(String message) {
-		this.message = message;
-	}
-	
 }

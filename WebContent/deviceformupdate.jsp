@@ -1,3 +1,4 @@
+<%@page import="com.java.model.Company"%>
 <%@page import="com.java.bean.DeviceInfoBean"%>
 <%@page import="java.sql.*"%>
 <%@page import="java.util.Iterator"%>
@@ -9,11 +10,10 @@
 <jsp:include page="partialview/nav.html"></jsp:include>
 <div id="content">
 	<%
-		/* List<DeviceInfoBean> data = (List<DeviceInfoBean>) request.getAttribute("device"); */
-		DeviceInfoBean data = (DeviceInfoBean) request.getAttribute("dUp");
-		if (data != null) {
+		if (request.getAttribute("cList") != null) {
+			if (request.getAttribute("device") != null) {
 	%>
-	<form action="deviceinsert" method="get">
+	<form action="NewDeviceUpdate" method="get">
 		<table>
 			<tbody>
 				<tr>
@@ -22,35 +22,39 @@
 				<tr>
 					<td>Name:</td>
 					<td><input type="text" name="dName"
-						value="<%=data.getCompanyName()%>" required="required"></td>
+						value="${device.getDeviceName()}" required="required"></td>
 				</tr>
 				<tr>
 					<td>Type:</td>
 					<td><select name="dType">
-							<option value="Laptop">Laptop</option>
-							<option value="Mobile">Mobile</option>
-							<option value="Tablet">Tablet</option>
+							<option>Laptop</option>
+							<option>Mobile</option>
+							<option>Tablet</option>
 					</select></td>
 				</tr>
 				<tr>
 					<td>Company:</td>
 					<td><select name="dCompanyId">
-							<!-- <option value="">Select type</option> -->
 							<%
-								Class.forName("com.mysql.jdbc.Driver").newInstance();
-									String connectionURL = "jdbc:mysql://localhost:3306/fptshop";
-									Connection connection = DriverManager.getConnection(
-											connectionURL, "root", "");
-									PreparedStatement psmnt = connection
-											.prepareStatement("SELECT company_id, company_name FROM company");
-									ResultSet results = psmnt.executeQuery();
-									while (results.next()) {
-										String name = results.getString(2);
-										int id = Integer.parseInt(results.getString(1));
+								List<Company> cList = (List<Company>) request
+												.getAttribute("cList");
+										DeviceInfoBean device = (DeviceInfoBean) request
+												.getAttribute("device");
+
+										Iterator<Company> itr = cList.iterator();
+										while (itr.hasNext()) {
+											Company company = itr.next();
+											if (company.getCompanyID() == (
+													device.getCompanyID())) {
 							%>
-							<option value="<%=id%>"><%=name%></option>
+							<option value="<%=device.getCompanyID()%>" selected="selected"><%=company.getCompanyName()%></option>
+							<%
+								} else {
+							%>
+							<option value="<%=company.getCompanyID()%> "><%=company.getCompanyName()%></option>
 							<%
 								}
+										}
 							%>
 					</select></td>
 				</tr>
@@ -69,15 +73,17 @@
 				<tr>
 					<td>Price:</td>
 					<td><input type="number" name="dPrice"
-						value="<%=data.getPrice()%>" required></td>
+						value="<%=device.getPrice()%>" required></td>
 				</tr>
 			</tbody>
 		</table>
+		<input type="hidden" name="id" value="${device.getDeviceID()}">
+
 		<input type="submit" name="updateSubmit" value="Update">
 	</form>
 	<%
 		}
-		else out.println("data is null");
-		/* } */
+
+		}
 	%>
 </div>

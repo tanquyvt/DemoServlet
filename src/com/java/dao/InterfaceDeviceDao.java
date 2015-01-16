@@ -1,25 +1,18 @@
-package com.java.devicedao;
+package com.java.dao;
 
 import java.sql.SQLException;
 import java.util.List;
-
 import com.java.bean.DeviceInfoBean;
 import com.java.model.Device;
 
-/**
- * @author Computer
- *
- */
-/**
- * @author Computer
- *
- */
-public interface Accessible {
+public interface InterfaceDeviceDao {
 	/**
 	 * View all devices method
 	 * @return List<Device>
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
+	 * 
+	 * Test Successful!
 	 */
 	public List<Device> viewAllDevices()
 			throws SQLException, ClassNotFoundException;
@@ -30,6 +23,8 @@ public interface Accessible {
 	 * @return DeviceInfoBean
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
+	 * 
+	 * Test Successful!
 	 */
 	public DeviceInfoBean viewDeviceDetails(int id)
 			throws SQLException, ClassNotFoundException;
@@ -40,6 +35,8 @@ public interface Accessible {
 	 * @return Device
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
+	 * 
+	 * Test Successful!
 	 */
 	public Device insertNewDevice(Device newDevice)
 			throws SQLException, ClassNotFoundException;
@@ -51,8 +48,10 @@ public interface Accessible {
 	 * @return
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
+	 * 
+	 * Test Successful!
 	 */
-	public Device updateDevice(int id, String[] updateValues)
+	public DeviceInfoBean updateDevice(int id, Device updateDevice)
 			throws SQLException, ClassNotFoundException ;
 	
 	/**
@@ -61,6 +60,8 @@ public interface Accessible {
 	 * @return
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
+	 * 
+	 * Test Successful!
 	 */
 	public List<DeviceInfoBean> searchDevice(String tableField, String stringToSearch)
 			throws SQLException, ClassNotFoundException; 
@@ -73,9 +74,11 @@ public interface Accessible {
 	 * @return
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
+	 * 
+	 * Test Successful!
 	 */
-	public List<DeviceInfoBean> searchDeviceByPrice(int lowerPrice, int upperPrice)
-			throws SQLException, ClassNotFoundException; 
+//	public List<DeviceInfoBean> searchDeviceByPrice(int lowerPrice, int upperPrice)
+//			throws SQLException, ClassNotFoundException; 
 	
 	
 	public void deleteDevice(int id) throws SQLException, ClassNotFoundException;

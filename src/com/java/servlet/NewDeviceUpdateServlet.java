@@ -13,14 +13,14 @@ import com.java.model.*;
 /**
  * Servlet implementation class DeviceUpdateServlet
  */
-@WebServlet("/DeviceUpdateServlet")
-public class DeviceUpdateServlet extends HttpServlet {
+@WebServlet("/NewDeviceUpdateServlet")
+public class NewDeviceUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public DeviceUpdateServlet() {
+	public NewDeviceUpdateServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -39,7 +39,7 @@ public class DeviceUpdateServlet extends HttpServlet {
 
 		d.setDeviceName(request.getParameter("dName"));
 		d.setType(request.getParameter("dType"));
-		d.setCompanyID(Integer.parseInt(request.getParameter("dCompany")));
+		d.setCompanyID(Integer.parseInt(request.getParameter("dCompanyId")));
 		d.setColor(request.getParameter("dColor"));
 		d.setPrice(Integer.parseInt(request.getParameter("dPrice")));
 

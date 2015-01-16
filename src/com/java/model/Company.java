@@ -1,22 +1,53 @@
 package com.java.model;
 
 public class Company {
+	
+	// Attributes of class Company
 	private int companyID;
 	private String companyName;
 	private String country;
-	private String message;
+
 	/**
-	 * @return the message
+	 * Constructor without parameters
 	 */
-	public String getMessage() {
-		return message;
-	}
+	public Company() {}
+
 	/**
-	 * @param message the message to set
+	 * Constructor with parameters
+	 * @param newCompanyID
+	 * @param newCompanyName
+	 * @param newCountry
 	 */
-	public void setMessage(String message) {
-		this.message = message;
+	public Company(int newCompanyID, String newCompanyName, String newCountry) {
+		this.setCompanyID(newCompanyID);
+		this.setCompanyName(newCompanyName);
+		this.setCountry(newCountry);
 	}
+	
+	/**
+	 * General setter
+	 * @param number
+	 * @param value
+	 */
+	public void setCompanyInfo(int number, String value) {
+		
+		// Choose a setter according to number
+		switch(number) {
+			case 1:
+				// Set Company ID
+				this.setCompanyID(Integer.parseInt(value));
+				break;
+			case 2:
+				// Set Company Name
+				this.setCompanyName(value);
+				break;
+			case 3:
+				// Set Country
+				this.setCountry(value);
+				break;
+		}
+	}
+	
 	/**
 	 * @return the companyID
 	 */
