@@ -4,78 +4,39 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
 	<display-name>DemoServlet</display-name>
-	<servlet>
-		<servlet-name>deviceinsert</servlet-name>
-		<servlet-class>com.java.servlet.DeviceInsertServlet</servlet-class>
-	</servlet>
+
+	<welcome-file-list>
+		<welcome-file>partialview/nav.html</welcome-file>
+	</welcome-file-list>
+
 	<servlet>
 		<servlet-name>DeviceList</servlet-name>
-		<servlet-class>com.java.servlet.DeviceListServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>CompanyList</servlet-name>
-		<servlet-class>com.java.servlet.CompanyListServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>devicesearch</servlet-name>
-		<servlet-class>com.java.servlet.DeviceSearchServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>DeviceDetail</servlet-name>
-		<servlet-class>com.java.servlet.DeviceDetailServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>CompanyDetail</servlet-name>
-		<servlet-class>com.java.servlet.CompanyDetailServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>DeviceUpdateForm</servlet-name>
-		<servlet-class>com.java.servlet.DeviceUpdateFormServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>NewDeviceUpdate</servlet-name>
-		<servlet-class>com.java.servlet.NewDeviceUpdateServlet</servlet-class>
+		<servlet-class>com.java.servlet.DeviceServlet</servlet-class>
 	</servlet>
 
 	<servlet>
-		<servlet-name>devicedelete</servlet-name>
-		<servlet-class>com.java.servlet.DeviceDeleteServlet</servlet-class>
+		<servlet-name>DeviceDetail</servlet-name>
+		<servlet-class>com.java.servlet.DeviceServlet</servlet-class>
 	</servlet>
+	
+	<servlet>
+		<servlet-name>DeviceEdit</servlet-name>
+		<servlet-class>com.java.servlet.DeviceServlet</servlet-class>
+	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>DeviceList</servlet-name>
-		<url-pattern>/DeviceList</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>CompanyList</servlet-name>
-		<url-pattern>/CompanyList</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>deviceinsert</servlet-name>
-		<url-pattern>/deviceinsert</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>devicesearch</servlet-name>
-		<url-pattern>/devicesearch</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>DeviceDetail</servlet-name>
-		<url-pattern>/DeviceDetail/*</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>CompanyDetail</servlet-name>
-		<url-pattern>/CompanyDetail/*</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>DeviceUpdateForm</servlet-name>
-		<url-pattern>/DeviceUpdateForm</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>NewDeviceUpdate</servlet-name>
-		<url-pattern>/NewDeviceUpdate</url-pattern>
+		<url-pattern>/device/list</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>
-		<servlet-name>devicedelete</servlet-name>
-		<url-pattern>/devicedelete</url-pattern>
+		<servlet-name>DeviceDetail</servlet-name>
+		<url-pattern>/device/detail/*</url-pattern>
 	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>DeviceEdit</servlet-name>
+		<url-pattern>/device/edit/*</url-pattern>
+	</servlet-mapping>
+
 </web-app>

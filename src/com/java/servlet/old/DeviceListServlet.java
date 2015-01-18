@@ -1,17 +1,20 @@
 package com.java.servlet;
 
 //	Import required java libraries
-import java.util.*;
-import java.io.*;
-import java.sql.*;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import com.java.dao.*;
-import com.java.model.*;
+import com.java.dao.DeviceDao;
+import com.java.dao.InterfaceDeviceDao;
+import com.java.model.Device;
 
 /**
  * Servlet implementation class DeviceListServlet Extend HttpServlet class
@@ -41,8 +44,8 @@ public class DeviceListServlet extends HttpServlet {
 
 		// Declare a list of Device object
 		List<Device> dList;
-		
-//		implement logic operation to check if exception occur
+
+		// implement logic operation to check if exception occur
 		try {
 
 			// assign return value of all devices to list

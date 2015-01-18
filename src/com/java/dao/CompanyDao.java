@@ -1,12 +1,15 @@
 package com.java.dao;
 
-import java.sql.*;
-import java.util.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.java.bean.*;
-import com.java.dbutil.*;
-import com.java.model.*;
-import com.java.preparedsql.*;
+import com.java.dbutil.DBNameConstant;
+import com.java.dbutil.DatabaseUtility;
+import com.java.dbutil.ResultRecord;
+import com.java.model.Company;
+import com.java.preparedsql.CompanyTableSql;
 
 public class CompanyDao implements InterfaceCompanyDao {
 
