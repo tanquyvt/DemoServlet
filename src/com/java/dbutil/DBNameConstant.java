@@ -15,6 +15,7 @@ public class DBNameConstant {
 	public static final String COMPANY_NAME = "company_name";
 	public static final String COUNTRY = "country";
 	
-	// Name constants for functions
-	public static final String LAST_ID = "LAST_INSERT_ID()"; 
+	// Other name constants
+	public static final String LAST_ID = "LAST_INSERT_ID()";
+	public static String COLUMN_NAME = "";
 }

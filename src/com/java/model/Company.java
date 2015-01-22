@@ -25,30 +25,6 @@ public class Company {
 	}
 	
 	/**
-	 * General setter
-	 * @param number
-	 * @param value
-	 */
-	public void setCompanyInfo(int number, String value) {
-		
-		// Choose a setter according to number
-		switch(number) {
-			case 1:
-				// Set Company ID
-				this.setCompanyID(Integer.parseInt(value));
-				break;
-			case 2:
-				// Set Company Name
-				this.setCompanyName(value);
-				break;
-			case 3:
-				// Set Country
-				this.setCountry(value);
-				break;
-		}
-	}
-	
-	/**
 	 * @return the companyID
 	 */
 	public int getCompanyID() {

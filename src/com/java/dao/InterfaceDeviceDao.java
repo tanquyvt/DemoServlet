@@ -77,8 +77,8 @@ public interface InterfaceDeviceDao {
 	 * 
 	 * Test Successful!
 	 */
-//	public List<DeviceInfoBean> searchDeviceByPrice(int lowerPrice, int upperPrice)
-//			throws SQLException, ClassNotFoundException; 
+	public List<DeviceInfoBean> searchDeviceByPrice(int lowerPrice, int upperPrice)
+			throws SQLException, ClassNotFoundException; 
 	
 	
 	public void deleteDevice(int id) throws SQLException, ClassNotFoundException;

@@ -1,0 +1,37 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	background-color: darkseagreen;
+}
+
+.nav {
+	position: fixed;
+	top: 1em;
+	right: 2em;
+}
+
+.content {
+	background-color: whitesmoke;
+}
+
+#price {
+	text-align: right;
+}
+
+a: link {
+	
+}
+
+a: visited {
+	
+}
+
+a:hover {
+	background-color: darkblue;
+	text-decoration: none;
+	color: white;
+}
+
+a: active {
+	
+}

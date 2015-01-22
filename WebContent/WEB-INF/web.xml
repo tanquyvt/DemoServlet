@@ -1,42 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-	version="3.1">
-	<display-name>DemoServlet</display-name>
-
-	<welcome-file-list>
-		<welcome-file>partialview/nav.html</welcome-file>
-	</welcome-file-list>
-
-	<servlet>
-		<servlet-name>DeviceList</servlet-name>
-		<servlet-class>com.java.servlet.DeviceServlet</servlet-class>
-	</servlet>
-
-	<servlet>
-		<servlet-name>DeviceDetail</servlet-name>
-		<servlet-class>com.java.servlet.DeviceServlet</servlet-class>
-	</servlet>
-	
-	<servlet>
-		<servlet-name>DeviceEdit</servlet-name>
-		<servlet-class>com.java.servlet.DeviceServlet</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>DeviceList</servlet-name>
-		<url-pattern>/device/list</url-pattern>
-	</servlet-mapping>
-
-	<servlet-mapping>
-		<servlet-name>DeviceDetail</servlet-name>
-		<url-pattern>/device/detail/*</url-pattern>
-	</servlet-mapping>
-	
-	<servlet-mapping>
-		<servlet-name>DeviceEdit</servlet-name>
-		<url-pattern>/device/edit/*</url-pattern>
-	</servlet-mapping>
-
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+  <display-name>DemoServlet</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <servlet-name>ListDevice</servlet-name>
+    <servlet-class>com.java.servlet.ListDeviceServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListDevice</servlet-name>
+    <url-pattern>/device/list</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ViewDevice</servlet-name>
+    <servlet-class>com.java.servlet.ViewDeviceServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ViewDevice</servlet-name>
+    <url-pattern>/device/view/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>EditDevice</servlet-name>
+    <servlet-class>com.java.servlet.EditDeviceServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditDevice</servlet-name>
+    <url-pattern>/device/edit/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>UpdateDevice</servlet-name>
+    <servlet-class>com.java.servlet.UpdateDeviceServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateDevice</servlet-name>
+    <url-pattern>/device/update</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>InsertDevice</servlet-name>
+    <servlet-class>com.java.servlet.InsertDeviceServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InsertDevice</servlet-name>
+    <url-pattern>/device/insert</url-pattern>
+  </servlet-mapping>
 </web-app>

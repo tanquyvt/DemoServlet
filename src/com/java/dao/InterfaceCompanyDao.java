@@ -51,7 +51,7 @@ public interface InterfaceCompanyDao {
 	 * 
 	 * Test Successful!
 	 */
-	public Company updateCompany(int id, String[] updateValues)
+	public Company updateCompany(int id, Company updateCompany)
 			throws SQLException, ClassNotFoundException ;
 	
 	/**

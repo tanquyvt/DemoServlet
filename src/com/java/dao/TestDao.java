@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.java.bean.DeviceInfoBean;
+import com.java.dbutil.DBNameConstant;
 import com.java.model.Device;
 
 public class TestDao {
@@ -48,7 +49,7 @@ public class TestDao {
 		try {
 			InterfaceDeviceDao a = new DeviceDao();
 			Device device = new Device(
-					0, "iPhone 4s 64GB", "Mobile", 1, "Silver", 8990000);
+					1, "iPhone 4s 64GB", "Mobile", 1, "Silver", 8990000);
 			Device result = new Device();
 			result = a.insertNewDevice(device);
 			System.out.format("%-5d%-30s%-10s%-5d%-10s%-10d",
@@ -90,8 +91,48 @@ public class TestDao {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void testSearchByPrice() {
+		try {
+			InterfaceDeviceDao a = new DeviceDao();
+			List<DeviceInfoBean> list = new ArrayList<DeviceInfoBean>();
+			list.addAll(a.searchDeviceByPrice(0, 10000000));
+			Iterator<DeviceInfoBean> iDev = list.iterator();
+			while (iDev.hasNext()) {
+				DeviceInfoBean result = iDev.next();
+				System.out.format("%-5d%-35s%-10s%-10s%-10s%-10s%10d\n",
+						result.getDeviceID(), result.getDeviceName(), result.getType(),
+						result.getCompanyName(), result.getCountry(), result.getColor(),
+						result.getPrice());
+			}
+		}
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public static void testSearchDevice() {
+		try {
+			InterfaceDeviceDao a = new DeviceDao();
+			List<DeviceInfoBean> list = new ArrayList<DeviceInfoBean>();
+			list.addAll(a.searchDevice(DBNameConstant.COLOR, "pink"));
+			Iterator<DeviceInfoBean> iDev = list.iterator();
+			while (iDev.hasNext()) {
+				DeviceInfoBean result = iDev.next();
+				System.out.format("%-5d%-35s%-10s%-10s%-10s%-10s%10d\n",
+						result.getDeviceID(), result.getDeviceName(), result.getType(),
+						result.getCompanyName(), result.getCountry(), result.getColor(),
+						result.getPrice());
+			}
+		}
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+	}
 
 	public static void main(String args[]) {
-		TestDao.testDeleteDevice();
+		TestDao.testSearchDevice();
 	}
 }

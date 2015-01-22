@@ -26,9 +26,9 @@ public class Device {
 	 */
 	public Device(int newDeviceID, String newDeviceName, String newType,
 				int newCompanyID, String newColor, int newPrice) {
-		this.setDeviceID(deviceID);
-		this.setDeviceName(deviceName);
-		this.setType(type);
+		this.setDeviceID(newDeviceID);
+		this.setDeviceName(newDeviceName);
+		this.setType(newType);
 		this.setCompanyID(newCompanyID);
 		this.setColor(newColor);
 		this.setPrice(newPrice);
