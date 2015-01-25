@@ -12,6 +12,9 @@
 <title>Insert</title>
 </head>
 <body>
+	<!-- include navigation content -->
+	<%@ include file="partialviews/nav.jsp"%>
+
 	<h2>Fill the form</h2>
 	<div class="content">
 		<form action="/DemoServlet/device/insert" method="get">
@@ -58,11 +61,10 @@
 				</tr>
 				<tr>
 					<td>Price</td>
-					<td><input type="text" name="dPrice"></td>
+					<td><input id="price" type="text" name="dPrice" value="0"></td>
 				</tr>
 			</table>
-			<br>
-			<input type="submit" value="Submit">
+			<br> <input type="submit" value="Submit">
 		</form>
 	</div>
 </body>

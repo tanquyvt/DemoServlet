@@ -1,5 +1,6 @@
+<%@page import="java.io.PrintWriter"%>
 <%@page import="java.util.Iterator"%>
-<%@page import="com.java.bean.DeviceInfoBean"%>
+<%@page import="com.java.model.Device"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -9,7 +10,7 @@
 <link rel="stylesheet" type="text/css"
 	href="/DemoServlet/demo/contents/css/mystyle.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>View details</title>
+<title>Search</title>
 </head>
 <body>
 	<!-- include navigation content -->
@@ -18,36 +19,40 @@
 	<%
 		/* Get dispatched attributes from servlet */
 		boolean eFlag = (boolean) request.getAttribute("eFlag");
-		DeviceInfoBean details = (DeviceInfoBean) request
-				.getAttribute("details");
+		List<Device> data = (List<Device>) request.getAttribute("devices");
 
-		if (eFlag | details == null) {
+		if (eFlag | data == null) {
 			response.sendRedirect("/DemoServlet/demo/contents/error.jsp");
 		} else {
 	%>
-	<h2>Details</h2>
+	<h2>Search results</h2>
 	<div class="content">
-		<table border="1">
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>Name</th>
-					<th>Type</th>
-					<th>Company</th>
-					<th>Color</th>
-					<th>Price</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td><%=details.getDeviceID()%></td>
-					<td><%=details.getDeviceName()%></td>
-					<td><%=details.getType()%></td>
-					<td><%=details.getCompanyName()%></td>
-					<td><%=details.getColor()%></td>
-					<td id="price"><%=details.getPrice()%></td>
-				</tr>
-			</tbody>
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Type</th>
+				<th>Company</th>
+				<th>Color</th>
+				<th>Price</th>
+			</tr>
+
+			<%
+				Iterator<Device> itr = data.iterator();
+					while (itr.hasNext()) {
+						Device device = itr.next();
+			%>
+			<tr>
+				<td><%=device.getDeviceID()%></td>
+				<td><%=device.getDeviceName()%></td>
+				<td><%=device.getType()%></td>
+				<td><%=device.getCompanyID()%></td>
+				<td><%=device.getColor()%></td>
+				<td><%=device.getPrice()%></td>
+			</tr>
+			<%
+				}
+			%>
 		</table>
 	</div>
 	<%

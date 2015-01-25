@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.java.bean.DeviceInfoBean;
+import com.java.bean.DeviceTypeBean;
 import com.java.dbutil.DBNameConstant;
 import com.java.dbutil.DatabaseUtility;
 import com.java.dbutil.ResultRecord;
@@ -43,8 +44,12 @@ public class DeviceDao implements InterfaceDeviceDao {
 			ResultRecord rr = new ResultRecord(rs);
 			for (int i = 0; i < rr.getTotalCount(); i++) {
 				Device device = new Device();
-				device.setDeviceID(Integer.parseInt(rr.getString(i, "device_id")));
-				device.setDeviceName(rr.getString(i, "device_name"));
+				device.setDeviceID(Integer.parseInt(rr.getString(i, DBNameConstant.DEVICE_ID)));
+				device.setDeviceName(rr.getString(i, DBNameConstant.DEVICE_NAME));
+				device.setType(rr.getString(i, DBNameConstant.TYPE));
+				device.setCompanyID(Integer.parseInt(rr.getString(i, DBNameConstant.COMPANY_ID)));
+				device.setColor(rr.getString(i, DBNameConstant.COLOR));
+				device.setPrice(Integer.parseInt(rr.getString(i, DBNameConstant.PRICE)));
 				devices.add(device);
 			}
 
@@ -122,16 +127,60 @@ public class DeviceDao implements InterfaceDeviceDao {
 			newDBUtil.closeDatabase();
 		}
 	}
+	
+	public List<String> viewType() throws SQLException, ClassNotFoundException {
+		
+		// Initiate a list containing all the infomation of device
+		List<String> types = new ArrayList<String>();
+
+		// Create a database utility object
+		DatabaseUtility newDBUtil = new DatabaseUtility();
+
+		try {
+
+			// Open database
+			newDBUtil.openDatabase();
+
+			// Create Statement for querying database
+			newDBUtil.statement = newDBUtil.connection.prepareStatement(
+					DeviceTableSql.SQL_VIEW_TYPE);
+
+			// Define result set with statement
+			ResultSet rs = newDBUtil.statement.executeQuery();
+
+			// Get values of the specific device
+			ResultRecord rr = new ResultRecord(rs);
+			for (int i = 0; i < rr.getTotalCount(); i++) {
+				types.add(rr.getString(i, DBNameConstant.TYPE));
+			}
+
+			// Return device information
+			return types;
+		} // End try
+
+		// Exception handling
+		catch (Exception exception) {
+
+			throw exception;
+		}
+
+		// Clean up the connection
+		finally {
+
+			// Close database
+			newDBUtil.closeDatabase();
+		}
+	}
 
 	/* (non-Javadoc)
 	 * @see com.java.devicedao.Accessible#insertNewDevice(com.java.model.Device)
 	 */
 	@Override
-	public Device insertNewDevice(Device newDevice)
+	public DeviceInfoBean insertNewDevice(Device newDevice)
 			throws SQLException, ClassNotFoundException {
 
 		// Initiate result device
-		Device insertedDevice = new Device();
+		DeviceInfoBean insertedDevice = new DeviceInfoBean();
 
 		// Create a database utility object
 		DatabaseUtility newDBUtil = new DatabaseUtility();
@@ -169,13 +218,11 @@ public class DeviceDao implements InterfaceDeviceDao {
 				if (Integer.parseInt(rr.getString(i, DBNameConstant.LAST_ID)) == 0) {
 					break;
 				}
-				insertedDevice.setDeviceID(
-						Integer.parseInt(rr.getString(i, DBNameConstant.LAST_ID)));
-				insertedDevice.setDeviceName(newDevice.getDeviceName());
-				insertedDevice.setType(newDevice.getType());
-				insertedDevice.setCompanyID(newDevice.getCompanyID());
-				insertedDevice.setColor(newDevice.getColor());
-				insertedDevice.setPrice(newDevice.getPrice());
+				else {
+					InterfaceDeviceDao d = new DeviceDao();
+					insertedDevice = d.viewDeviceDetails(
+							Integer.parseInt(rr.getString(i, DBNameConstant.LAST_ID)));
+				}
 			}
 
 			// Return the inserted device's information
@@ -270,11 +317,11 @@ public class DeviceDao implements InterfaceDeviceDao {
 	 * @see com.java.devicedao.Accessible#SearchDevice(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public List<DeviceInfoBean> searchDevice(String tableField, String stringToSearch)
+	public List<Device> searchDevice(String tableField, String stringToSearch)
 			throws SQLException, ClassNotFoundException {
 		
 		// Initiate search device
-		List<DeviceInfoBean> devices = new ArrayList<DeviceInfoBean>();
+		List<Device> devices = new ArrayList<Device>();
 
 		// Create a database utility object
 		DatabaseUtility newDBUtil = new DatabaseUtility();
@@ -283,28 +330,40 @@ public class DeviceDao implements InterfaceDeviceDao {
 
 			// Open database
 			newDBUtil.openDatabase();
-			
-			// Set column name
-			DBNameConstant.COLUMN_NAME = tableField;
 
 			// Create statement for querying database
-			newDBUtil.statement = newDBUtil.connection.prepareStatement(
-					DeviceTableSql.SQL_SEARCH_DEVICE);
+			// according to the given column name
+			if (tableField.equals(DBNameConstant.DEVICE_NAME)) {
+				newDBUtil.statement = newDBUtil.connection.prepareStatement(
+						DeviceTableSql.SQL_SEARCH_NAME);
+			} else if (tableField.equals(DBNameConstant.TYPE)) {
+				newDBUtil.statement = newDBUtil.connection.prepareStatement(
+						DeviceTableSql.SQL_SEARCH_TYPE);
+			} else if (tableField.equals(DBNameConstant.COMPANY_NAME)) {
+				newDBUtil.statement = newDBUtil.connection.prepareStatement(
+						DeviceTableSql.SQL_SEARCH_COMPANY);
+			} else if (tableField.equals(DBNameConstant.COUNTRY)) {
+				newDBUtil.statement = newDBUtil.connection.prepareStatement(
+						DeviceTableSql.SQL_SEARCH_COUNTRY);
+			} else if (tableField.equals(DBNameConstant.COLOR)) {
+				newDBUtil.statement = newDBUtil.connection.prepareStatement(
+						DeviceTableSql.SQL_SEARCH_COLOR);
+			}
 			newDBUtil.statement.setString(1, "%" + stringToSearch + "%");
 
 			// Define result set with statement
 			ResultSet rs = newDBUtil.statement.executeQuery();
-
+						
 			// Get the values of the searched device(s)
 			ResultRecord rr = new ResultRecord(rs);
 			for (int i = 0; i < rr.getTotalCount(); i++) {
-				DeviceInfoBean device = new DeviceInfoBean();
+				Device device = new Device();
 				device.setDeviceID(
 						Integer.parseInt(rr.getString(i, DBNameConstant.DEVICE_ID)));
 				device.setDeviceName(rr.getString(i, DBNameConstant.DEVICE_NAME));
 				device.setType(rr.getString(i, DBNameConstant.TYPE));
-				device.setCompanyName(rr.getString(i,DBNameConstant.COMPANY_NAME));
-				device.setCountry(rr.getString(i, DBNameConstant.COUNTRY));
+				device.setCompanyID(
+						Integer.parseInt(rr.getString(i, DBNameConstant.COMPANY_ID)));
 				device.setColor(rr.getString(i, DBNameConstant.COLOR));
 				device.setPrice(rr.getString(i, DBNameConstant.PRICE) == null ? 0 :
 						Integer.parseInt(rr.getString(i, DBNameConstant.PRICE)));
@@ -321,7 +380,7 @@ public class DeviceDao implements InterfaceDeviceDao {
 		}
 
 		finally {
-
+			
 			// Close database
 			newDBUtil.closeDatabase();
 		}
@@ -397,19 +456,80 @@ public class DeviceDao implements InterfaceDeviceDao {
 		// Create a database utility object
 		DatabaseUtility newDBUtil = new DatabaseUtility();
 
-		// Open database
-		newDBUtil.openDatabase();
+		try {
+			// Open database
+			newDBUtil.openDatabase();
 
-		// Create statement for querying database
-		newDBUtil.statement = newDBUtil.connection.prepareStatement(
-				DeviceTableSql.SQL_DELETE_DEVICE);
-		newDBUtil.statement.setInt(1, id);
+			// Create statement for querying database
+			newDBUtil.statement = newDBUtil.connection.prepareStatement(
+					DeviceTableSql.SQL_DELETE_DEVICE);
+			newDBUtil.statement.setInt(1, id);
 
-		// Execute the statement
-		newDBUtil.statement.executeUpdate();
+			// Execute the statement
+			newDBUtil.statement.executeUpdate();
+		} // End try
 
-		// Close database
-		newDBUtil.closeDatabase();
+		// Exception handling
+		catch (Exception exception) {
+			throw exception;
+		}
+
+		// Clean up the connection
+		finally {
+			// Close database
+			newDBUtil.closeDatabase();
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see com.java.dao.InterfaceDeviceDao#viewTypeCompanies()
+	 */
+	@Override
+	public List<DeviceTypeBean> viewTypeInfo() throws SQLException,
+			ClassNotFoundException {
+		
+		// Create a list of results
+		List<DeviceTypeBean> results = new ArrayList<DeviceTypeBean>();
+		
+		// Create a database utility object
+		DatabaseUtility newDBUtil = new DatabaseUtility();
+
+		try {
+			// Open database
+			newDBUtil.openDatabase();
+
+			// Create statement for querying database
+			newDBUtil.statement = newDBUtil.connection.prepareStatement(
+					DeviceTableSql.SQL_TYPE_INFO);
+
+			// Initiate the result set for viewing all the devices
+			ResultSet rs = newDBUtil.statement.executeQuery();
+
+			// Get the results into the device list
+			ResultRecord rr = new ResultRecord(rs);
+			for (int i = 0; i < rr.getTotalCount(); i++) {
+				DeviceTypeBean typeInfo = new DeviceTypeBean();
+				typeInfo.setType(rr.getString(i, DBNameConstant.TYPE));
+				typeInfo.setCompanyID(
+						Integer.parseInt(rr.getString(i, DBNameConstant.COMPANY_ID)));
+				typeInfo.setCompanyName(rr.getString(i, DBNameConstant.COMPANY_NAME));
+				results.add(typeInfo);
+			}
+
+			// Return the device list
+			return results;
+		} // End try
+
+		// Exception handling
+		catch (Exception exception) {
+			throw exception;
+		}
+
+		// Clean up the connection
+		finally {
+			// Close database
+			newDBUtil.closeDatabase();
+		}
 	}
 
 	/* (non-Javadoc)

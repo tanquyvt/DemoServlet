@@ -14,7 +14,7 @@
 </head>
 <body>
 	<!-- include navigation content -->
-	<%@ include file="partialviews/nav.html"%>
+	<%@ include file="partialviews/nav.jsp"%>
 
 	<%
 		/* Get dispatched attributes from servlet */
@@ -44,7 +44,10 @@
 					href="/DemoServlet/device/view/<%=device.getDeviceID()%>"><%=device.getDeviceName()%></a></td>
 				<td><a
 					href="/DemoServlet/device/edit/<%=device.getDeviceID()%>">Edit</a></td>
-				<td><a href="">Delete</a></td>
+				<%-- <td><a
+					href="/DemoServlet/device/delete/<%=device.getDeviceID()%>">Delete</a></td> --%>
+				<td><a
+					href="/DemoServlet/demo/contents/deleteconfirm.jsp?id=<%=device.getDeviceID()%>">Delete</a></td>
 			</tr>
 			<%
 				}

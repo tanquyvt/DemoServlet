@@ -14,15 +14,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.java.bean.DeviceInfoBean;
 import com.java.dao.DeviceDao;
-import com.java.model.Device;
 
 /**
- * Servlet implementation class InsertDeviceServlet
+ * Servlet implementation class DeleteDeviceServlet
  */
-@WebServlet("/InsertDevice")
-public class InsertDeviceServlet extends HttpServlet {
+@WebServlet("/DeleteDevice")
+public class DeleteDeviceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// Create a logger for this class
@@ -45,45 +43,25 @@ public class InsertDeviceServlet extends HttpServlet {
 		// using console handler
 		logger.addHandler(lh);
 
+		// split uri into small parts
+		String[] url = req.getRequestURI().split("/");
+
+		// get value of id
+		int id = Integer.parseInt(url[4]);
+
 		// default value means that there are no exception
 		boolean exceptionFlag = false;
 
-		// default value means that there are no exception
-		boolean validFlag = true;
-
-		String dName = null;
-
-		if (req.getParameter("dName") == null
-				|| req.getParameter("dName").isEmpty()) {
-			validFlag = false;
-		} else {
-			dName = req.getParameter("dName");
-		}
-
-		String dType = req.getParameter("dType");
-		int dCompanyID = Integer.parseInt(req.getParameter("dCompanyID"));
-		String dColor = req.getParameter("dColor");
-		int dPrice = Integer.valueOf(req.getParameter("dPrice"));
-
-		Device dObj = new Device();
-
-		dObj.setDeviceName(dName);
-		dObj.setType(dType);
-		dObj.setCompanyID(dCompanyID);
-		dObj.setColor(dColor);
-		dObj.setPrice(dPrice);
-
-		DeviceDao dDao = new DeviceDao();
-
-		DeviceInfoBean dNew = null;
+		DeviceDao dao = new DeviceDao();
 
 		// initiate dispatcher object to jsp file
 		RequestDispatcher dispatch = req
-				.getRequestDispatcher("/demo/contents/insert.jsp");
+				.getRequestDispatcher("/demo/contents/delete.jsp");
 
 		try {
-			dNew = dDao.insertNewDevice(dObj);
+			dao.deleteDevice(id);
 		} catch (ClassNotFoundException | SQLException e) {
+
 			// assign flag to true if any exception are caught
 			exceptionFlag = true;
 
@@ -93,8 +71,6 @@ public class InsertDeviceServlet extends HttpServlet {
 
 		// set attributes for preparing dispatching
 		req.setAttribute("eFlag", exceptionFlag);
-		req.setAttribute("details", dNew);
-		req.setAttribute("valid", validFlag);
 		// implement forward with attributes
 		dispatch.forward(req, res);
 

@@ -2,17 +2,18 @@ package com.java.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+
 import com.java.bean.DeviceInfoBean;
+import com.java.bean.DeviceTypeBean;
 import com.java.model.Device;
 
 public interface InterfaceDeviceDao {
+	
 	/**
 	 * View all devices method
 	 * @return List<Device>
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
-	 * 
-	 * Test Successful!
 	 */
 	public List<Device> viewAllDevices()
 			throws SQLException, ClassNotFoundException;
@@ -23,11 +24,17 @@ public interface InterfaceDeviceDao {
 	 * @return DeviceInfoBean
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
-	 * 
-	 * Test Successful!
 	 */
 	public DeviceInfoBean viewDeviceDetails(int id)
 			throws SQLException, ClassNotFoundException;
+	
+	/**
+	 * View all device's types
+	 * @return List<String>
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	public List<String> viewType() throws SQLException, ClassNotFoundException;
 	
 	/**
 	 * Insert new device method
@@ -35,53 +42,60 @@ public interface InterfaceDeviceDao {
 	 * @return Device
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
-	 * 
-	 * Test Successful!
 	 */
-	public Device insertNewDevice(Device newDevice)
+	public DeviceInfoBean insertNewDevice(Device newDevice)
 			throws SQLException, ClassNotFoundException;
 	
 	/**
+	 * Update device's information
 	 * @param id
 	 * @param updateField
 	 * @param updateValue
-	 * @return
+	 * @return DeviceInfoBean
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
-	 * 
-	 * Test Successful!
 	 */
 	public DeviceInfoBean updateDevice(int id, Device updateDevice)
 			throws SQLException, ClassNotFoundException ;
 	
 	/**
+	 * Search device(s)
 	 * @param tableField
 	 * @param stringToSearch
-	 * @return
+	 * @return List<DeviceInfoBean>
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
-	 * 
-	 * Test Successful!
 	 */
-	public List<DeviceInfoBean> searchDevice(String tableField, String stringToSearch)
+	public List<Device> searchDevice(String tableField, String stringToSearch)
 			throws SQLException, ClassNotFoundException; 
 	
 	/**
-	 * SearchDeviceByPrice
-	 * 
+	 * Search device(s) by price
 	 * @param lowerPrice
 	 * @param upperPrice
-	 * @return
+	 * @return List<DeviceInfoBean>
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
-	 * 
-	 * Test Successful!
 	 */
 	public List<DeviceInfoBean> searchDeviceByPrice(int lowerPrice, int upperPrice)
 			throws SQLException, ClassNotFoundException; 
 	
 	
+	/**
+	 * Delete a device
+	 * @param id
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	public void deleteDevice(int id) throws SQLException, ClassNotFoundException;
+
+	/**
+	 * View the companies of each device type
+	 * @return
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	public List<DeviceTypeBean> viewTypeInfo() throws SQLException, ClassNotFoundException ;
 	
 	/**
 	 * 

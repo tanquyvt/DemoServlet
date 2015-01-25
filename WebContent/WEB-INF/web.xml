@@ -49,4 +49,20 @@
     <servlet-name>InsertDevice</servlet-name>
     <url-pattern>/device/insert</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>DeleteDevice</servlet-name>
+    <servlet-class>com.java.servlet.DeleteDeviceServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteDevice</servlet-name>
+    <url-pattern>/device/delete/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>SearchDevice</servlet-name>
+    <servlet-class>com.java.servlet.SearchDeviceServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchDevice</servlet-name>
+    <url-pattern>/device/search</url-pattern>
+  </servlet-mapping>
 </web-app>

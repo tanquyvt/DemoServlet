@@ -15,17 +15,21 @@
 </head>
 <body>
 	<!-- include navigation content -->
-	<%@ include file="partialviews/nav.html"%>
+	<%@ include file="partialviews/nav.jsp"%>
 
 	<%
 		/* Get dispatched attributes from servlet */
 		boolean eFlag = (boolean) request.getAttribute("eFlag");
-		Device details = (Device) request.getAttribute("details");
+		boolean valid = (boolean) request.getAttribute("valid");
+		DeviceInfoBean details = (DeviceInfoBean) request
+				.getAttribute("details");
 
 		if (eFlag) {
 			response.sendRedirect("/DemoServlet/demo/contents/error.jsp");
 		} else if (details.getDeviceID() == 0) {
-			response.sendRedirect("/DemoServlet/demo/contents/msg.jsp");
+			response.sendRedirect("/DemoServlet/demo/contents/msg-duplicate.jsp");
+		} else if (!valid) {
+			response.sendRedirect("/DemoServlet/demo/contents/msg-invalid.jsp");
 		} else {
 	%>
 	<h2>Insert successful!</h2>
@@ -50,12 +54,8 @@
 					<td>
 						<%
 							for (ECompany cName : ECompany.values()) {
-									if (cName.company_id == details.getCompanyID()) {
-						%> <%=cName%> <%
- 	} else {
- %> <%
+						%> <%=details.getCompanyName()%> <%
  	}
- 		}
  %>
 					</td>
 					<td><%=details.getColor()%></td>

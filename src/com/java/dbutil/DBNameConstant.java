@@ -17,5 +17,4 @@ public class DBNameConstant {
 	
 	// Other name constants
 	public static final String LAST_ID = "LAST_INSERT_ID()";
-	public static String COLUMN_NAME = "";
 }

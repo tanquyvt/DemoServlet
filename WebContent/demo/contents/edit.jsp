@@ -16,7 +16,7 @@
 </head>
 <body>
 	<!-- include navigation content -->
-	<%@ include file="partialviews/nav.html"%>
+	<%@ include file="partialviews/nav.jsp"%>
 
 	<%
 		/* Get dispatched attributes from servlet */

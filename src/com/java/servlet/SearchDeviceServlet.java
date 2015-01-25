@@ -2,6 +2,7 @@ package com.java.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -14,15 +15,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.java.bean.DeviceInfoBean;
 import com.java.dao.DeviceDao;
+import com.java.dao.InterfaceDeviceDao;
 import com.java.model.Device;
 
 /**
- * Servlet implementation class InsertDeviceServlet
+ * Servlet implementation class SearchDeviceServlet
  */
-@WebServlet("/InsertDevice")
-public class InsertDeviceServlet extends HttpServlet {
+@WebServlet("/SearchDevice")
+public class SearchDeviceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// Create a logger for this class
@@ -48,42 +49,20 @@ public class InsertDeviceServlet extends HttpServlet {
 		// default value means that there are no exception
 		boolean exceptionFlag = false;
 
-		// default value means that there are no exception
-		boolean validFlag = true;
+		String sValue = req.getParameter("sValue");
+		String sField = req.getParameter("sField");
 
-		String dName = null;
-
-		if (req.getParameter("dName") == null
-				|| req.getParameter("dName").isEmpty()) {
-			validFlag = false;
-		} else {
-			dName = req.getParameter("dName");
-		}
-
-		String dType = req.getParameter("dType");
-		int dCompanyID = Integer.parseInt(req.getParameter("dCompanyID"));
-		String dColor = req.getParameter("dColor");
-		int dPrice = Integer.valueOf(req.getParameter("dPrice"));
-
-		Device dObj = new Device();
-
-		dObj.setDeviceName(dName);
-		dObj.setType(dType);
-		dObj.setCompanyID(dCompanyID);
-		dObj.setColor(dColor);
-		dObj.setPrice(dPrice);
-
-		DeviceDao dDao = new DeviceDao();
-
-		DeviceInfoBean dNew = null;
+		InterfaceDeviceDao dao = new DeviceDao();
+		List<Device> devices = null;
 
 		// initiate dispatcher object to jsp file
 		RequestDispatcher dispatch = req
-				.getRequestDispatcher("/demo/contents/insert.jsp");
+				.getRequestDispatcher("/demo/contents/search.jsp");
 
 		try {
-			dNew = dDao.insertNewDevice(dObj);
+			devices = dao.searchDevice(sField, sValue);
 		} catch (ClassNotFoundException | SQLException e) {
+
 			// assign flag to true if any exception are caught
 			exceptionFlag = true;
 
@@ -93,11 +72,9 @@ public class InsertDeviceServlet extends HttpServlet {
 
 		// set attributes for preparing dispatching
 		req.setAttribute("eFlag", exceptionFlag);
-		req.setAttribute("details", dNew);
-		req.setAttribute("valid", validFlag);
+		req.setAttribute("devices", devices);
 		// implement forward with attributes
 		dispatch.forward(req, res);
-
 	}
 
 	/**

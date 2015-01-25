@@ -6,11 +6,20 @@
 <link rel="stylesheet" type="text/css"
 	href="/DemoServlet/demo/contents/css/mystyle.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Home</title>
+<title>Confirm</title>
 </head>
 <body>
-	<!-- include navigation content -->
-	<%@ include file="demo/contents/partialviews/nav.jsp"%>
-	<h2>Home</h2>
+	<%
+		int id = Integer.parseInt(request.getParameter("id"));
+	%>
+	<div class="confirm">
+		<form action="/DemoServlet/device/delete/<%=id%>">
+			<h2>Are you sure?</h2>
+			<input type="submit" value="Delete(<%=id%>)">
+		</form>
+		<form action="/DemoServlet/device/list">
+			<input type="submit" value="No">
+		</form>
+	</div>
 </body>
 </html>
